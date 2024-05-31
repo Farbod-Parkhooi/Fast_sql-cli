@@ -1,4 +1,4 @@
-from fast_sql import fast_sql
+from modules.fast_sql import fast_sql
 from colorama import Fore, init, Style
 from platform import uname
 from os import system
@@ -20,7 +20,12 @@ commands = ["add_new_column", "all_rows", "all_table_data", "clear_table", "clos
 exit_commands = ["exit", "quit", "exit()", "quit()"]
 help_commands = ["help()", "help", "help_me", "helpme", "i_dont_know", "idontknow", "sos"]
 
+def clear():
+    global plat
+    if "win" in plat: system("cls")
+    else: system("clear")
 def start():
+    clear()
     global WHITE, GREEN, YELLOW, BLUE, RESET, RED, CYAN
     db_name = input(f"{WHITE}[{GREEN}+{WHITE}] {GREEN}Write your database name{WHITE}({BLUE}ex{YELLOW}: {BLUE}database.db{WHITE}){YELLOW}: ")
     tb_name = input(f"{WHITE}[{GREEN}+{WHITE}] {GREEN}Write your table name{WHITE}({BLUE}ex{YELLOW}: {BLUE}users{WHITE}){YELLOW}: ")
@@ -46,10 +51,6 @@ def help():
         else: text += f"{GREEN}, "
         if (i % 5) == 0 and i != 0: text += "\n"
     return text
-def clear():
-    global plat
-    if "win" in plat: system("cls")
-    else: system("clear")
 def send_out(out):
     global GREEN, RED
     if out == True: print(f"{GREEN}Completed!")
@@ -62,6 +63,20 @@ def go_out(text=f"{RED} IF YOU CLOSE THIS PROCESS JUST YOUR DATABASE WILL SAVE!!
         clear()
         print(f"{BLUE}    YOUR SAFE NOW!  :)")
         sleep(3)
+def banner():
+    global BLUE, CYAN, WHITE, YELLOW, RED
+    print(f"""{BLUE}
+ ________________                              ___________________              ___
+|_______________/    ________________        /                     \           |   |
+|   |                \___________    \      /    {YELLOW}github.com/{BLUE}        \          |   |
+|   |___________                /    /     /     {YELLOW}Unknow-per/{BLUE}         \         |   |
+| {RED}({BLUE} |__________/   ____________/    /     /      {YELLOW}Fast_sql{BLUE}    ____     \        |   |  {CYAN} Sqlite is for {BLUE}
+| {RED}F{BLUE} |             /  ______________/     |                  \    \     |       |   |  {YELLOW} Everyone{WHITE}.{BLUE}
+| {RED}){BLUE} |            /  /                     \        {RED}(Q){BLUE}       \    \   /        |   |
+|   |            \  \    {RED}(S){BLUE}               \                  \    \ /         |   |___________   
+|   |             \  \_______________       \                  \    \          |    {RED}(L){BLUE}        |
+|___|              \________________/        \__________________\____\         |_______________|
+""")
 def cli(fsql):
     global WHITE, GREEN, YELLOW, BLUE, RESET, RED, CYAN, plat, first_time, commands, exit_commands, help_commands
     while True:
@@ -70,6 +85,7 @@ def cli(fsql):
             if first_time == True:
                 print(f"{YELLOW}***{GREEN}write {CYAN}i_dont_know{YELLOW}({BLUE}or something like help, SOS, help_me, ...{YELLOW}){GREEN} to show all commands.{YELLOW}***{RESET}")
                 first_time = False
+            banner()
             command = input(f"{YELLOW}>>>{BLUE} ").lower()
             if command in help_commands: print(help())
             if command in exit_commands: 
