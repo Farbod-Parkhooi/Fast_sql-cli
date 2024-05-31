@@ -2,8 +2,7 @@ from fast_sql import fast_sql
 from colorama import Fore, init, Style
 from platform import uname
 from os import system
-from time import sleep
-from requests import get
+from time import sleep 
 
 init()
 
